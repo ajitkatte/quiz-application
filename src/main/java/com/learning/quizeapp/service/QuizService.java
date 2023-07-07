@@ -38,13 +38,18 @@ public class QuizService {
 
     public ResponseEntity<List<QuizQuestion>> getQuizQuestions(Integer id) {
         var quiz = _quizDao.findById(id);
+
         if (quiz.isPresent()) {
             List<Question> questions = quiz.get().getQuestions();
 
-            var quizQuestions = questions.stream().map(q -> mapToQuizQuestion(q)).collect(Collectors.toList());
+            var quizQuestions = questions
+                    .stream()
+                    .map(q -> mapToQuizQuestion(q))
+                    .collect(Collectors.toList());
 
             return new ResponseEntity<>(quizQuestions, HttpStatus.OK);
         }
+
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
@@ -59,6 +64,7 @@ public class QuizService {
 
     public ResponseEntity<Integer> calculateSubmissionScore(Integer quizId, List<QuizSubmission> submissions) {
         var quiz = _quizDao.findById(quizId);
+        
         if (quiz.isPresent()) {
             var questions = quiz.get().getQuestions();
             int score = (int) submissions
@@ -68,11 +74,18 @@ public class QuizService {
 
             return new ResponseEntity<Integer>(score, HttpStatus.OK);
         }
+        
         return new ResponseEntity<Integer>(0, HttpStatus.NOT_FOUND);
     }
 
     private String getRightAnswer(List<Question> questions, Integer id) {
-        Optional<Question> question = questions.stream().filter(q -> q.getId() == id).findFirst();
-        return question.isPresent() ? question.get().getAnswer() : null;
+        Optional<Question> question = questions
+                .stream()
+                .filter(q -> q.getId() == id)
+                .findFirst();
+
+        return question.isPresent()
+                ? question.get().getAnswer()
+                : null;
     }
 }
