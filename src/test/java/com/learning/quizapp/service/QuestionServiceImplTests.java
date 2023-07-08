@@ -24,9 +24,8 @@ import org.springframework.http.HttpStatus;
 
 import com.learning.quizapp.dao.QuestionRepository;
 import com.learning.quizapp.model.Question;
-import com.learning.quizapp.service.QuestionServiceImpl;
 
-public class QuestionServiceTests {
+public class QuestionServiceImplTests {
 
     @InjectMocks
     private QuestionServiceImpl _questionService;

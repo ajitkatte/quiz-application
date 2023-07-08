@@ -12,28 +12,28 @@ import com.learning.quizapp.model.*;
 @Service
 public class QuizServiceImpl implements QuizService {
 
-    private QuizRepository _quizDao;
-    private QuestionRepository _questionDao;
+    private QuizRepository _quizRepository;
+    private QuestionRepository _questionRepository;
 
-    public QuizServiceImpl(QuizRepository quizDao, QuestionRepository questionDao) {
-        this._quizDao = quizDao;
-        this._questionDao = questionDao;
+    public QuizServiceImpl(QuizRepository quizRepository, QuestionRepository questionRepository) {
+        this._quizRepository = quizRepository;
+        this._questionRepository = questionRepository;
     }
 
     public ResponseEntity<Integer> createQuiz(String category, int numQ, String title) {
 
-        var questions = _questionDao.findRandomQuestionsByCategory(category, numQ);
+        var questions = _questionRepository.findRandomQuestionsByCategory(category, numQ);
 
         var quiz = new Quiz();
         quiz.setTitle(title);
         quiz.setQuestions(questions);
-        var createdQuiz = _quizDao.save(quiz);
+        var createdQuiz = _quizRepository.save(quiz);
 
         return new ResponseEntity<>(createdQuiz.getId(), HttpStatus.CREATED);
     }
 
     public ResponseEntity<List<QuizQuestion>> getQuizQuestions(Integer id) {
-        var quiz = _quizDao.findById(id);
+        var quiz = _quizRepository.findById(id);
 
         if (quiz.isPresent()) {
             List<Question> questions = quiz.get().getQuestions();
@@ -50,7 +50,7 @@ public class QuizServiceImpl implements QuizService {
     }
 
     public ResponseEntity<Integer> calculateSubmissionScore(Integer quizId, List<QuizSubmission> submissions) {
-        var quiz = _quizDao.findById(quizId);
+        var quiz = _quizRepository.findById(quizId);
 
         if (quiz.isPresent()) {
             var questions = quiz.get().getQuestions();
@@ -66,7 +66,7 @@ public class QuizServiceImpl implements QuizService {
     }
 
     public ResponseEntity<QuizDto> getQuizById(Integer quizId) {
-        var quiz = _quizDao.findById(quizId);
+        var quiz = _quizRepository.findById(quizId);
         if (quiz.isPresent()) {
             List<Question> questions = quiz.get().getQuestions();
             var quizQuestions = questions
@@ -81,7 +81,7 @@ public class QuizServiceImpl implements QuizService {
 
     public ResponseEntity<Boolean> deleteQuiz(Integer id) {
         try {
-            _quizDao.deleteById(id);
+            _quizRepository.deleteById(id);
             return new ResponseEntity<>(true, HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,7 +90,7 @@ public class QuizServiceImpl implements QuizService {
     }
 
     public ResponseEntity<List<QuizDto>> getAll() {
-        List<Quiz> quizzes = _quizDao.findAll();
+        List<Quiz> quizzes = _quizRepository.findAll();
         var quizzesDto = quizzes
                 .stream()
                 .map(qz -> mapToQuizDto(qz))
@@ -100,11 +100,11 @@ public class QuizServiceImpl implements QuizService {
 
     public ResponseEntity<QuizDto> updateQuizTitle(Integer id, String title) {
         try {
-            var quiz = _quizDao.findById(id);
+            var quiz = _quizRepository.findById(id);
             if (quiz.isPresent()) {
                 quiz.get().setTitle(title);
                 ;
-                var updatedQuiz = _quizDao.save(quiz.get());
+                var updatedQuiz = _quizRepository.save(quiz.get());
                 var quizDto = mapToQuizDto(updatedQuiz);
                 return new ResponseEntity<>(quizDto, HttpStatus.ACCEPTED);
             }
