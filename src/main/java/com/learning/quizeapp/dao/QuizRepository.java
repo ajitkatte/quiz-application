@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.learning.quizeapp.model.Quiz;
 
-public interface QuizDao extends JpaRepository<Quiz, Integer> {
+public interface QuizRepository extends JpaRepository<Quiz, Integer> {
 
 }

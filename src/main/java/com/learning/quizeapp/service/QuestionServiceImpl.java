@@ -7,15 +7,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.learning.quizeapp.dao.QuestionDao;
+import com.learning.quizeapp.dao.QuestionRepository;
 import com.learning.quizeapp.model.Question;
 
 @Service
 public class QuestionServiceImpl implements QuestionService {
 
-    private QuestionDao _questionDao;
+    private QuestionRepository _questionDao;
 
-    public QuestionServiceImpl(QuestionDao questionDao) {
+    public QuestionServiceImpl(QuestionRepository questionDao) {
         this._questionDao = questionDao;
     }
 

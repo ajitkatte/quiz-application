@@ -12,10 +12,10 @@ import com.learning.quizeapp.model.*;
 @Service
 public class QuizServiceImpl implements QuizService {
 
-    private QuizDao _quizDao;
-    private QuestionDao _questionDao;
+    private QuizRepository _quizDao;
+    private QuestionRepository _questionDao;
 
-    public QuizServiceImpl(QuizDao quizDao, QuestionDao questionDao) {
+    public QuizServiceImpl(QuizRepository quizDao, QuestionRepository questionDao) {
         this._quizDao = quizDao;
         this._questionDao = questionDao;
     }
