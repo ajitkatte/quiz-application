@@ -1,4 +1,4 @@
-package com.learning.quizeapp.util;
+package com.learning.quizapp.util;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.learning.quizeapp.model;
+package com.learning.quizapp.model;
 
 public record QuizSubmission(Integer questionId, String answer) {
 

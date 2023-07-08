@@ -1,8 +1,8 @@
-package com.learning.quizeapp.dao;
+package com.learning.quizapp.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.learning.quizeapp.model.Quiz;
+import com.learning.quizapp.model.Quiz;
 
 public interface QuizRepository extends JpaRepository<Quiz, Integer> {
 

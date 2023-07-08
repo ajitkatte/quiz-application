@@ -1,12 +1,12 @@
-package com.learning.quizeapp.controller;
+package com.learning.quizapp.controller;
 
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.learning.quizeapp.model.Question;
-import com.learning.quizeapp.service.QuestionService;
+import com.learning.quizapp.model.Question;
+import com.learning.quizapp.service.QuestionService;
 
 @RestController
 @RequestMapping("questions")

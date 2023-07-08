@@ -1,10 +1,10 @@
-package com.learning.quizeapp.service;
+package com.learning.quizapp.service;
 
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.learning.quizeapp.model.Question;
+import com.learning.quizapp.model.Question;
 
 public interface QuestionService {
    ResponseEntity<List<Question>> getAllQuestions();

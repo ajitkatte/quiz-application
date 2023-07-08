@@ -1,12 +1,12 @@
-package com.learning.quizeapp.service;
+package com.learning.quizapp.service;
 
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.learning.quizeapp.model.QuizDto;
-import com.learning.quizeapp.model.QuizQuestion;
-import com.learning.quizeapp.model.QuizSubmission;
+import com.learning.quizapp.model.QuizDto;
+import com.learning.quizapp.model.QuizQuestion;
+import com.learning.quizapp.model.QuizSubmission;
 
 public interface QuizService {
     ResponseEntity<Integer> createQuiz(String category, int numQ, String title);

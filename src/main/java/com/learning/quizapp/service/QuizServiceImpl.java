@@ -1,4 +1,4 @@
-package com.learning.quizeapp.service;
+package com.learning.quizapp.service;
 
 import java.util.*;
 import java.util.stream.*;
@@ -6,8 +6,8 @@ import java.util.stream.*;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 
-import com.learning.quizeapp.dao.*;
-import com.learning.quizeapp.model.*;
+import com.learning.quizapp.dao.*;
+import com.learning.quizapp.model.*;
 
 @Service
 public class QuizServiceImpl implements QuizService {

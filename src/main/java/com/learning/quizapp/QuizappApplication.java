@@ -1,13 +1,13 @@
-package com.learning.quizeapp;
+package com.learning.quizapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class QuizeappApplication {
+public class QuizappApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(QuizeappApplication.class, args);
+		SpringApplication.run(QuizappApplication.class, args);
 	}
 
 }

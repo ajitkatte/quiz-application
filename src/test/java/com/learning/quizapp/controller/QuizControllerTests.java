@@ -1,6 +1,6 @@
-package com.learning.quizeapp.controller;
+package com.learning.quizapp.controller;
 
-import static com.learning.quizeapp.util.TestUtil.getOkResponse;
+import static com.learning.quizapp.util.TestUtil.getOkResponse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,10 +20,11 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 
-import com.learning.quizeapp.model.QuizDto;
-import com.learning.quizeapp.model.QuizQuestion;
-import com.learning.quizeapp.model.QuizSubmission;
-import com.learning.quizeapp.service.QuizService;
+import com.learning.quizapp.controller.QuizController;
+import com.learning.quizapp.model.QuizDto;
+import com.learning.quizapp.model.QuizQuestion;
+import com.learning.quizapp.model.QuizSubmission;
+import com.learning.quizapp.service.QuizService;
 
 public class QuizControllerTests {
     @InjectMocks
