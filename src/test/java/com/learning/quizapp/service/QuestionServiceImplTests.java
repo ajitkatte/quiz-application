@@ -105,8 +105,9 @@ public class QuestionServiceImplTests {
 
     @Test
     public void addQuestion_throwsException() {
-        when(_questionRepository.save(mock(Question.class))).thenThrow(RuntimeException.class);
-        var response = _questionService.addQuestion(mock(Question.class));
+        var mockQuestion = getMockQuestions().get(0);
+        when(_questionRepository.save(mockQuestion)).thenThrow(RuntimeException.class);
+        var response = _questionService.addQuestion(mockQuestion);
         assertNotNull(response);
         var statusCode = response.getStatusCode();
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, statusCode);
