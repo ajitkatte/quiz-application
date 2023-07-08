@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.learning.quizeapp.model.QuizDto;
 import com.learning.quizeapp.model.QuizQuestion;
 import com.learning.quizeapp.model.QuizSubmission;
 import com.learning.quizeapp.service.QuizService;
@@ -19,13 +20,23 @@ public class QuizController {
     private QuizService _quizService;
 
     @PostMapping
-    public ResponseEntity<String> createQuiz(@RequestParam String category, @RequestParam int numQ, @RequestParam String title) {
+    public ResponseEntity<Integer> createQuiz(@RequestParam String category, @RequestParam int numQ, @RequestParam String title) {
         return _quizService.createQuiz(category, numQ, title);
     }
 
-    @GetMapping("{id}")
+    @GetMapping
+    public ResponseEntity<List<QuizDto>> getAll(){
+        return _quizService.getAll();
+    }
+
+    @GetMapping("questions/{id}")
     public ResponseEntity<List<QuizQuestion>> getQuizQuestions(@PathVariable Integer id) {
         return _quizService.getQuizQuestions(id);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<QuizDto> getQuizById(@PathVariable Integer id) {
+        return _quizService.getQuizById(id);
     }
 
     @PostMapping("submit/{quizId}")
@@ -33,4 +44,13 @@ public class QuizController {
         return _quizService.calculateSubmissionScore(quizId, submissions);  
     }
 
+    @DeleteMapping("{id}")
+    public ResponseEntity<Boolean> deleteQuiz(@PathVariable Integer id) {
+        return _quizService.deleteQuiz(id);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<QuizDto> updateQuizTitle(@PathVariable Integer id, @RequestParam String title) {
+        return _quizService.updateQuizTitle(id, title);
+    }
 }
