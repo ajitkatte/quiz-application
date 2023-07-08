@@ -1,9 +1,5 @@
 package com.learning.quizeapp.model;
 
-import lombok.Data;
+public record QuizSubmission(Integer questionId, String answer) {
 
-@Data
-public class QuizSubmission {
-    private Integer questionId;
-    private String answer;
 }

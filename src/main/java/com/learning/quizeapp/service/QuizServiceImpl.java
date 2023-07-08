@@ -56,7 +56,7 @@ public class QuizServiceImpl implements QuizService {
             var questions = quiz.get().getQuestions();
             int score = (int) submissions
                     .stream()
-                    .filter(s -> s.getAnswer().equalsIgnoreCase(getRightAnswer(questions, s.getQuestionId())))
+                    .filter(s -> s.answer().equalsIgnoreCase(getRightAnswer(questions, s.questionId())))
                     .count();
 
             return new ResponseEntity<>(score, HttpStatus.OK);
