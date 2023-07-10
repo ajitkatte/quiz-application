@@ -73,4 +73,24 @@ public class QuizServiceImplTests {
         assertNotNull(response);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
+
+    @Test
+    public void getQuizById_successful() {
+        var mockQuiz = getMockQuiz(Optional.empty());
+        when(_quizRepository.findById(anyInt())).thenReturn(Optional.of(mockQuiz));
+        var response = _quizService.getQuizById(anyInt());
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        var quiz = response.getBody();
+        assertNotNull(quiz);
+        assertEquals(mockQuiz.getTitle(), quiz.title());
+    }
+
+    @Test
+    public void getQuizById_notFound() {
+        when(_quizRepository.findById(anyInt())).thenReturn(Optional.empty());
+        var response = _quizService.getQuizById(anyInt());
+        assertNotNull(response);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
 }
