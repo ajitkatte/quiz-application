@@ -19,6 +19,14 @@ public class QuizMockData {
         return quiz;
     }
 
+    public static List<Quiz> getMockQuizzes() {
+        var quiz = getMockQuiz(Optional.empty());
+        var quizzes = new ArrayList<Quiz>() {{
+            add(quiz);
+        }};
+        return quizzes;
+    }
+
     public static List<QuizQuestion> getMockQuizQuestions() {
         var questions = QuestionMockData.getMockQuestions();
         QuizQuestion quizQuestion = questions

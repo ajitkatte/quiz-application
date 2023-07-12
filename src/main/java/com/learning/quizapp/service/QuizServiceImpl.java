@@ -103,7 +103,6 @@ public class QuizServiceImpl implements QuizService {
             var quiz = _quizRepository.findById(id);
             if (quiz.isPresent()) {
                 quiz.get().setTitle(title);
-                ;
                 var updatedQuiz = _quizRepository.save(quiz.get());
                 var quizDto = mapToQuizDto(updatedQuiz);
                 return new ResponseEntity<>(quizDto, HttpStatus.ACCEPTED);

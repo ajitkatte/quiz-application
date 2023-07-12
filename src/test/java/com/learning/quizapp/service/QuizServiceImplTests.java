@@ -3,8 +3,11 @@ package com.learning.quizapp.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anySet;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
@@ -122,5 +125,43 @@ public class QuizServiceImplTests {
         assertFalse(status);
         assertEquals(HttpStatus.NOT_FOUND, statusCode);
         verify(_quizRepository).deleteById(anyInt());
+    }
+
+    @Test
+    public void getAll_successful() {
+        var mockQuizzes = getMockQuizzes();
+        when(_quizRepository.findAll()).thenReturn(mockQuizzes);
+        var response = _quizService.getAll();
+        assertNotNull(response);
+        assertTrue(response.getStatusCode() == HttpStatus.OK);
+        var quizzes = response.getBody();
+        assertNotNull(quizzes);
+        assertEquals(mockQuizzes.size(), quizzes.size());
+        assertEquals(mockQuizzes.get(0).getTitle(), quizzes.get(0).title());
+    }
+
+    @Test
+    public void updateQuizTitle_successful() {
+        String title = "Mocked Quiz";
+        var mockQuiz = getMockQuiz(Optional.empty());
+        when(_quizRepository.findById(anyInt())).thenReturn(Optional.of(mockQuiz));
+        mockQuiz.setTitle(title);
+        when(_quizRepository.save(mockQuiz)).thenReturn(mockQuiz);
+        var response = _quizService.updateQuizTitle(mockQuiz.getId(), title);
+        assertNotNull(response);
+        assertTrue(response.getStatusCode() == HttpStatus.ACCEPTED);
+        var updatedQuiz = response.getBody();
+        assertNotNull(updatedQuiz);
+        assertEquals(title, updatedQuiz.title());
+    }
+
+    @Test
+    public void updateQuizTitle_throwsException() {
+        when(_quizRepository.findById(anyInt())).thenReturn(Optional.empty());
+        var response = _quizService.updateQuizTitle(anyInt(), anyString());
+        assertNotNull(response);
+        assertTrue(response.getStatusCode() == HttpStatus.NOT_FOUND);
+        var updatedQuiz = response.getBody();
+        assertNull(updatedQuiz);
     }
 }
