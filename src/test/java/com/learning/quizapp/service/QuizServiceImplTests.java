@@ -1,9 +1,13 @@
 package com.learning.quizapp.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -92,5 +96,31 @@ public class QuizServiceImplTests {
         var response = _quizService.getQuizById(anyInt());
         assertNotNull(response);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void deleteQuiz_successful() {
+        doNothing().when(_quizRepository).deleteById(anyInt());
+        var response = _quizService.deleteQuiz(anyInt());
+        assertNotNull(response);
+        var statusCode = response.getStatusCode();
+        var status = response.getBody();
+        assertTrue(status instanceof Boolean);
+        assertTrue(status);
+        assertEquals(HttpStatus.NO_CONTENT, statusCode);
+        verify(_quizRepository).deleteById(anyInt());
+    }
+
+    @Test
+    public void deleteQuiz_throwsException() {
+        doThrow(RuntimeException.class).when(_quizRepository).deleteById(anyInt());
+        var response = _quizService.deleteQuiz(anyInt());
+        assertNotNull(response);
+        var statusCode = response.getStatusCode();
+        var status = response.getBody();
+        assertTrue(status instanceof Boolean);
+        assertFalse(status);
+        assertEquals(HttpStatus.NOT_FOUND, statusCode);
+        verify(_quizRepository).deleteById(anyInt());
     }
 }

@@ -115,7 +115,7 @@ public class QuestionServiceImplTests {
 
     @Test
     public void deleteQuestion_successful() {
-        doNothing().when(_questionRepository).deleteById(anyInt());;
+        doNothing().when(_questionRepository).deleteById(anyInt());
         var response = _questionService.deleteQuestion(anyInt());
         assertNotNull(response);
         var statusCode = response.getStatusCode();
@@ -128,7 +128,7 @@ public class QuestionServiceImplTests {
 
     @Test
     public void deleteQuestion_throwsException() {
-        doThrow(RuntimeException.class).when(_questionRepository).deleteById(anyInt());;
+        doThrow(RuntimeException.class).when(_questionRepository).deleteById(anyInt());
         var response = _questionService.deleteQuestion(anyInt());
         assertNotNull(response);
         var statusCode = response.getStatusCode();
